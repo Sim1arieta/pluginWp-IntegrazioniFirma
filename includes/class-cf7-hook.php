@@ -21,23 +21,28 @@ class CF7_Hook
         // Crea prodotto
         $product_id = Product_Factory::create($data);
 
-        // Salva product_id se serve in futuro
-        // $submission->add_uploaded_file('if_product_id', $product_id);
 
-        // Aggiunta al carrello + redirect
-        Cart_Handler::add_to_cart_and_redirect($product_id);
-
-        // Salta l’email CF7
+        // Aggiunta al carrello
+        Cart_Handler::add_to_cart($product_id);
+        
+        // Salta l'email CF7
         add_filter('wpcf7_skip_mail', '__return_true');
+
+        //wp_redirect(URL_CARRELLO);
+
+        // Iniettiamo la URL nel JSON di risposta di CF7
+        add_filter('wpcf7_ajax_json_echo', function ($response) {
+            $response['checkout_url'] = URL_CHECKOUT;
+            $response['cart_url'] = URL_CARRELLO;
+            return $response;
+        });
     }
 
     public static function enqueue_js()
     {
         if (! is_page()) return;
         wp_enqueue_script('integrazioni-firma-cf7', INTEGRAZIONI_FIRMA_URL . 'assets/js/cf7-hook.js', ['jquery'], INTEGRAZIONI_FIRMA_VER, true);
-        wp_localize_script('integrazioni-firma-cf7', 'ifData', [
-            'cartUrl' => wc_get_cart_url(),
-        ]);
+       
     }
 }
 

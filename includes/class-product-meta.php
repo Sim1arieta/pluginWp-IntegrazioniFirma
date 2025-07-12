@@ -4,6 +4,7 @@ namespace Integrazioni_Firma;
 
 class Product_Meta
 {
+
     public static function get_acf(int $product_id, string $key)
     {
         return function_exists('get_field') ? get_field($key, $product_id) : null;
