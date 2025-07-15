@@ -31,7 +31,7 @@ class CF7_Hook
         //wp_redirect(URL_CARRELLO);
 
         // Iniettiamo la URL nel JSON di risposta di CF7
-        add_filter('wpcf7_ajax_json_echo', function ($response) {
+        add_filter('wpcf7_feedback_response', function ($response) { //hook funzionante ma deprecato: wpcf7_ajax_json_echo
             $response['checkout_url'] = URL_CHECKOUT;
             $response['cart_url'] = URL_CARRELLO;
             return $response;

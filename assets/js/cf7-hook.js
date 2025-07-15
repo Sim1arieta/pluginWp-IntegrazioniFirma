@@ -28,8 +28,8 @@ document.addEventListener('wpcf7mailsent', (e) => {
   const { cart_url, checkout_url } = e.detail.apiResponse || {};
 
   // reindirizziamo alla prima URL disponibile
-  if (cart_url) window.location.href = cart_url;
-  else if (checkout_url) window.location.href = checkout_url;
+  // if (cart_url) window.location.href = cart_url;
+  // else if (checkout_url) window.location.href = checkout_url;
 
   Swal.close();
 });

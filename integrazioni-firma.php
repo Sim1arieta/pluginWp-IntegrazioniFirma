@@ -18,8 +18,8 @@ define('INTEGRAZIONI_FIRMA_VER', '0.1.0');
 define('URL_SITO', get_home_url());
 
 add_action('woocommerce_init', function(){
-  define('URL_CARRELLO', wc_get_cart_url()); //http://localhost/approveme/index.php/carrello/ 
-  define('URL_CHECKOUT', wc_get_checkout_url()); //http://localhost/approveme/index.php/pagamento/ 
+  define('URL_CARRELLO', wc_get_cart_url()); //es. https://dominio/carrello/ 
+  define('URL_CHECKOUT', wc_get_checkout_url()); //es. http://dominio/pagamento/ 
 });
 
 
@@ -33,14 +33,14 @@ foreach (glob(__DIR__ . '/includes/class-*.php') as $file) {
 add_action('plugins_loaded', function () {
   \Integrazioni_Firma\Assets::init();
   \Integrazioni_Firma\CF7_Hook::init();
+  \Integrazioni_Firma\Esign_Hook::init();
   \Integrazioni_Firma\Reminder_Service::init();
   \Integrazioni_Firma\Shortcode_Manager::init();
+  \Integrazioni_Firma\Custom_Hook::init();
   if (class_exists('WooCommerce')) {
     Integrazioni_Firma\Cart_Handler::init();
   }
 });
-
-
 
 
 // ---------- Cron ----------

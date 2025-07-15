@@ -6,10 +6,18 @@ class Shortcode_Manager
 {
     public static function init()
     {
-        add_shortcode('if_product_title', [__CLASS__, 'product_title_cb']);
-        add_shortcode('if_product_price', [__CLASS__, 'product_price_cb']);
-        add_shortcode('if_acf_field',    [__CLASS__, 'acf_field_cb']);
-        add_shortcode('if_product_meta', [__CLASS__, 'meta_cb']);
+        add_shortcode('esigsasito', [__CLASS__, 'get_blogname']);
+        add_shortcode('esigsaproduct_title', [__CLASS__, 'product_title_cb']);
+        add_shortcode('esigsacurrent_product_id', [__CLASS__, 'current_product_id']);
+        add_shortcode('esigsaproduct_price', [__CLASS__, 'product_price_cb']);
+        add_shortcode('esigsaacf_field',    [__CLASS__, 'acf_field_cb']);
+        add_shortcode('esigsaproduct_meta', [__CLASS__, 'meta_cb']);
+    }
+
+    public static function get_blogname()
+    {
+        $site_name = get_option('blogname', '');
+        return "<h1><b>Simone Arieta</b> - $site_name</h1>";
     }
 
     private static function current_product_id(): int
@@ -43,4 +51,6 @@ class Shortcode_Manager
         $id = self::current_product_id();
         return $id ? esc_html(Product_Meta::get_meta($id, $atts['key'])) : '';
     }
+
+   
 }

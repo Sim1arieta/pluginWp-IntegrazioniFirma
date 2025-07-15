@@ -2,6 +2,11 @@
 
 namespace Integrazioni_Firma;
 
+
+/*
+* Hook custom per finalizzare il processo di firma bypassando anche contact form 7
+*/
+
 class Custom_Hook
 {
    public static function init()

@@ -17,7 +17,7 @@ class Product_Factory
 
     // SKU univoco: userID_timestamp
     $user  = get_current_user_id();
-    $sku   = 'eb_' . $user . '_' . time();
+    $sku   = 'eb_' . $user . '_' . time(); //eb_ sta per EuropeBooks...
 
     $product = new \WC_Product_Simple();
     $product->set_name($title);
