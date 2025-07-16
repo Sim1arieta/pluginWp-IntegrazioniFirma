@@ -38,6 +38,7 @@ class Cart_Handler
             return $ready; // WooCommerce non attivo
         }
 
+
         /* Aggiunge il prodotto */
         try {
             $item_key = WC()->cart->add_to_cart($product_id, $qty);
@@ -45,10 +46,22 @@ class Cart_Handler
             Logger::error($th->getMessage());
         }
        
+        //TODO da testare
+        //cookie/sessione anche per GUEST
+        if ( ! is_user_logged_in() ) {
 
-        // if (! $item_key) {
-        //     return new WP_Error('add_failed', 'Impossibile aggiungere il prodotto al carrello.');
-        // }
+            WC()->session->set_customer_session_cookie( true );
+
+            // cookie di utilità per JS/frontend
+            wc_setcookie( 'woocommerce_items_in_cart', 1 );
+            wc_setcookie( 'woocommerce_cart_hash', WC()->cart->get_cart_hash() );
+        }
+
+
+        if (! $item_key) {
+            return new WP_Error('add_failed', 'Impossibile aggiungere il prodotto al carrello.');
+            Logger::error('Non è stato possibile aggiungere il prodotto al carrello: id '. $product_id);
+        }
 
         // Aggiorna i totali e crea il cookie solo per gli utenti loggati 
         // WC()->cart->calculate_totals();
