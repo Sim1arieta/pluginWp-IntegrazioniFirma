@@ -32,7 +32,11 @@ class Esign_Hook
 
     public static function redirect_to_cart()
     {
-        error_log('URL_CARRELLO');
-        wp_redirect(URL_CARRELLO);
+        try {
+            wp_redirect(URL_CARRELLO);
+            exit;
+        } catch (\Throwable $th) {
+            Logger::error($th->getMessage());
+        }
     }
 }

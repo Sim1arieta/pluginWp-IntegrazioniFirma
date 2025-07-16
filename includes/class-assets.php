@@ -27,12 +27,12 @@ class Assets
         //Carico solo i plugin dove servono
         if (is_page('pulsante-con-contact-form-7')) {//TODO renderlo dinamico
             
+        }
             //js
             wp_enqueue_script('sim1-sweetalert2');
             
             //css
             wp_register_style('integrazioni-firma', INTEGRAZIONI_FIRMA_URL . 'assets/css/frontend.css');
-        }
     }
 
 

@@ -7,7 +7,7 @@ class CF7_Hook
     public static function init()
     {
         add_action('wpcf7_before_send_mail', [__CLASS__, 'handle_form']);
-        add_action('wp_enqueue_scripts',      [__CLASS__, 'enqueue_js']);
+        add_action('wp_enqueue_scripts', [__CLASS__, 'enqueuecf7_js']);
     }
 
     public static function handle_form(\WPCF7_ContactForm $form)
@@ -23,7 +23,13 @@ class CF7_Hook
 
 
         // Aggiunta al carrello
-        Cart_Handler::add_to_cart($product_id);
+        try {
+            Cart_Handler::add_to_cart($product_id);
+            // Logger::log($product_id);
+
+        } catch (\Throwable $th) {
+            Logger::error($th->getMessage());
+        }
         
         // Salta l'email CF7
         add_filter('wpcf7_skip_mail', '__return_true');
@@ -38,9 +44,10 @@ class CF7_Hook
         });
     }
 
-    public static function enqueue_js()
+    public static function enqueuecf7_js()
     {
-        if (! is_page()) return;
+        // if (! is_page('PAGINA SPECIFICA')) return;
+        //in fase di test lo carico sempre
         wp_enqueue_script('integrazioni-firma-cf7', INTEGRAZIONI_FIRMA_URL . 'assets/js/cf7-hook.js', ['jquery'], INTEGRAZIONI_FIRMA_VER, true);
        
     }

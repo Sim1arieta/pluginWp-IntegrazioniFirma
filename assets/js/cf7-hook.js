@@ -22,7 +22,6 @@ document.addEventListener('wpcf7beforesubmit', function(e){
   
 });
 
-
 document.addEventListener('wpcf7mailsent', (e) => {
   
   const { cart_url, checkout_url } = e.detail.apiResponse || {};

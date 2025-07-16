@@ -39,12 +39,16 @@ class Cart_Handler
         }
 
         /* Aggiunge il prodotto */
-        $item_key = WC()->cart->add_to_cart($product_id, $qty);
+        try {
+            $item_key = WC()->cart->add_to_cart($product_id, $qty);
+        } catch (\Throwable $th) {
+            Logger::error($th->getMessage());
+        }
        
 
-        if (! $item_key) {
-            return new WP_Error('add_failed', 'Impossibile aggiungere il prodotto al carrello.');
-        }
+        // if (! $item_key) {
+        //     return new WP_Error('add_failed', 'Impossibile aggiungere il prodotto al carrello.');
+        // }
 
         // Aggiorna i totali e crea il cookie solo per gli utenti loggati 
         // WC()->cart->calculate_totals();

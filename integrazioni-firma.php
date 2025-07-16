@@ -15,6 +15,7 @@ defined('ABSPATH') || exit;  //Protezione da accesso diretto
 define('INTEGRAZIONI_FIRMA_URL', plugin_dir_url(__FILE__));
 define('INTEGRAZIONI_FIRMA_PATH', __DIR__);
 define('INTEGRAZIONI_FIRMA_VER', '0.1.0');
+define('UPLOAD_DIR_PATH', wp_upload_dir());
 define('URL_SITO', get_home_url());
 
 add_action('woocommerce_init', function(){
@@ -37,6 +38,7 @@ add_action('plugins_loaded', function () {
   \Integrazioni_Firma\Reminder_Service::init();
   \Integrazioni_Firma\Shortcode_Manager::init();
   \Integrazioni_Firma\Custom_Hook::init();
+  \Integrazioni_Firma\Logger::init();
   if (class_exists('WooCommerce')) {
     Integrazioni_Firma\Cart_Handler::init();
   }
