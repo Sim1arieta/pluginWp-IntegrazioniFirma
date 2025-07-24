@@ -47,16 +47,13 @@ class Esign_Hook
         $doc = $payload['document'];
         $recipient  = $payload['recipient'];
         $invitation = $payload['invitation'];
-
+        
         $doc_id = $doc->document_id;
-        // Logger::log('Doc_id: '. $doc_id);
-
+        
         $dati_form_json = self::get_cf7_submission_value($doc_id, self::$meta_key);
-
         $dati_form = json_decode($dati_form_json, true);
         
-    
-        // print_r($dati_form);
+
 
         if (!empty($dati_form)) {
             try {
@@ -66,11 +63,16 @@ class Esign_Hook
             } catch (\Throwable $th) {
                 Logger::error($th->getMessage());
             }
+
+            
             
             Cart_Handler::add_to_cart($product_id);
+            //metodo alternativo -> http://localhost/approveme/index.php/carrello/?add-to-cart=213
+
+            self::redirect_to_cart($product_id);
+            
         }
 
-         self::redirect_to_cart();
     }
 
 
@@ -94,13 +96,16 @@ class Esign_Hook
         } 
     }
 
-    public static function redirect_to_cart()
+    public static function redirect_to_cart($product_id = null, $qty = 1)
     {
+
+        // $arg = "?add-to-cart=$product_id&quantity=$qty";
+
         try {
             wp_redirect(URL_CARRELLO);
-            exit;
         } catch (\Throwable $th) {
             Logger::error($th->getMessage());
         }
+        exit;
     }
 }
