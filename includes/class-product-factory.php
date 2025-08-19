@@ -11,14 +11,15 @@ class Product_Factory
   public static function create(array $data = []): int
   {
     if (empty ($data)) {
-      Logger::error('Product_Factory::create -> Dati prodotto mancanti');
+          Logger::error('Product_Factory::create -> Dati prodotto mancanti');
     }
 
     try { 
-      // Sanitize
-      $title = sanitize_text_field($data['product_title'] ?? 'Prodotto Contratto');
+      // Sanifica i dati
+      $title = sanitize_text_field($data['product_title'] ?? 'Contratto');
       $price = floatval($data['price'] ?? 0);
       $qty   = intval($data['qta'] ?? 1);
+      $qty   = intval($data['product_description'] ?? 'Sottoscrizione contratto');
 
       // SKU univoco: userID_timestamp
       $user  = get_current_user_id();

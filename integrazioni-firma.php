@@ -1,12 +1,16 @@
 <?php
 /*
   Plugin Name: Integrazioni Firma
-  Description: Plugin che implementa il processo di acquisto (WP-WC-Acf-eSign-FM)
-  Version: 0.1.0
+  Description: Plugin che implementa il pagamento del contratto sottoscritto contestualmente alla firma del medesimo
+  Version: 0.9.0
   Author: Simone Arieta
   Author URI: 
   Text Domain: sim1
   License: GPL -2.0+
+
+  Requires at least: 6.5
+  Requires PHP: 8.0
+  Requires Plugins: woocommerce, contact-form-7, e-signature, advanced-custom-fields
 */
 
 defined('ABSPATH') || exit;  //Protezione da accesso diretto
@@ -32,6 +36,30 @@ foreach (glob(__DIR__ . '/includes/class-*.php') as $file) {
 
 // ---------- Avvio ----------
 add_action('plugins_loaded', function () {
+
+  //Verifico prima le dipendenze
+  $errors = [];
+
+  if (! class_exists('WooCommerce')) $errors[] = 'WooCommerce';
+  if (! class_exists('WPCF7_ContactForm')) $errors[] = 'Contact Form 7';
+  if (! function_exists('WP_E_Sig')) $errors[] = 'WP E-Signature (ApproveMe)';
+
+  // ACF non serve per il funzionamento base (per ora)
+  if (!defined('IF_HAS_ACF')) {
+    define('IF_HAS_ACF', function_exists('get_field'));
+  }
+
+  if ($errors) {
+    //
+    add_action('admin_notices', function () use ($errors) {
+      echo '<div class="notice notice-error"><p><strong>Integrazioni Firma</strong>: dipendenze mancanti o non compatibili — ' .
+        esc_html(implode(', ', $errors)) . '.</p></div>';
+    });
+    
+    //Non inizializzo il plugin
+    return;
+  }
+
   \Integrazioni_Firma\Assets::init();
   \Integrazioni_Firma\CF7_Hook::init();
   \Integrazioni_Firma\Esign_Hook::init();
