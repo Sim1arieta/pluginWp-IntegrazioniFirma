@@ -9,7 +9,7 @@ class Assets
     public static function init()
     {
         add_action('wp_enqueue_scripts',    [__CLASS__, 'register_front']); //richiama gli script per il frontend
-        add_action('admin_enqueue_scripts', [__CLASS__, 'register_admin']); //richiama gli script per il backend(admin)
+        add_action('admin_enqueue_scripts', [__CLASS__, 'register_admin']); //richiama gli script per il backend(admin) - Da implementare se serve
     }
 
     // Metodo statico per registrare gli asset del frontend.
@@ -25,14 +25,14 @@ class Assets
     
 
         //Carico solo i plugin dove servono
-        if (is_page('pulsante-con-contact-form-7')) {//TODO renderlo dinamico
-            
-        }
-            //js
-            wp_enqueue_script('sim1-sweetalert2');
-            
-            //css
-            wp_register_style('integrazioni-firma', INTEGRAZIONI_FIRMA_URL . 'assets/css/frontend.css');
+        // if (is_page('pulsante-con-contact-form-7')) {//TODO renderlo dinamico (analizzare siti in produzione)
+        // }
+    
+        //js
+        wp_enqueue_script('sim1-sweetalert2');
+        
+        //css
+        wp_register_style('integrazioni-firma', INTEGRAZIONI_FIRMA_URL . 'assets/css/frontend.css');
     }
 
 
@@ -40,6 +40,14 @@ class Assets
     // Metodo statico placeholder per eventuali asset lato admin.
     public static function register_admin()
     {
-        // Placeholder per eventuali asset lato admin (forse)
+        /*
+            Implementazioni potenziali:
+            - attivazione selettiva;
+            - scelta form di trigger processo (ID);
+            - Gestione e visualizzazione Log plugin;
+            - Guida;
+            - Statistiche
+
+        */
     }
 }

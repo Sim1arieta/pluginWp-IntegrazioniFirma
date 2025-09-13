@@ -2,6 +2,9 @@
 
 namespace Integrazioni_Firma;
 
+/**
+ * TODO gestione metacampi
+ */
 class Product_Meta
 {
 

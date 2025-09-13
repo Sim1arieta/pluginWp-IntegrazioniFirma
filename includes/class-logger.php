@@ -2,6 +2,7 @@
 
 namespace Integrazioni_Firma;
 
+
 class Logger
 {
     private static $log_file = INTEGRAZIONI_FIRMA_PATH . '\log\debug_if.log';

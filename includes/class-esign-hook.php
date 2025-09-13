@@ -67,7 +67,7 @@ class Esign_Hook
             
             
             Cart_Handler::add_to_cart($product_id);
-            //metodo alternativo -> http://localhost/approveme/index.php/carrello/?add-to-cart=213
+            //metodo alternativo (meno controllo) -> http://localhost/approveme/index.php/carrello/?add-to-cart=213
 
             self::redirect_to_cart($product_id);
             

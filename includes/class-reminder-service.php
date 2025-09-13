@@ -2,6 +2,9 @@
 
 namespace Integrazioni_Firma;
 
+/**
+ * Classe per gestione reminder
+ */
 class Reminder_Service
 {
     const MAX_REMINDERS = 3;
@@ -25,6 +28,8 @@ class Reminder_Service
                 continue;
             }
 
+            //Email
+            //utilizzo le funzioni native di wp e wc
             wc_mail(
                 $order->get_billing_email(),
                 __('Promemoria: completa il pagamento del tuo contratto', 'integrazioni-firma'),

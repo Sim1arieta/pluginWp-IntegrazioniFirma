@@ -46,17 +46,20 @@ class CF7_Hook
         //     Logger::error($th->getMessage());
         // }
         
-        // Salta l'email CF7
+        // Salta l'email CF7 (Forse da integrare successivamente)
         add_filter('wpcf7_skip_mail', '__return_true');
 
-        // Iniettiamo la URL nel JSON di risposta di CF7
+        // Aggiungo la URL nel JSON di risposta di CF7
         add_filter('wpcf7_feedback_response', function ($response) { //hook funzionante ma deprecato: wpcf7_ajax_json_echo
+            
             $response['checkout_url'] = URL_CHECKOUT;
             $response['cart_url'] = URL_CARRELLO;
+            
             return $response;
         });
     }
 
+    //Include il codice del plugin nella pagina
     public static function enqueuecf7_js()
     {
         // if (! is_page('PAGINA SPECIFICA')) return;

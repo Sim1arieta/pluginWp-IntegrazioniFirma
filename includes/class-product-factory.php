@@ -17,7 +17,7 @@ class Product_Factory
     try { 
       // Sanifica i dati
       $title = sanitize_text_field($data['product_title'] ?? 'Contratto');
-      $price = floatval($data['price'] ?? 0);
+      $price = floatval($data['price'] ?? 1000);// Valutare con il cliente un valore di default
       $qty   = intval($data['qta'] ?? 1);
       $qty   = intval($data['product_description'] ?? 'Sottoscrizione contratto');
 
@@ -37,9 +37,11 @@ class Product_Factory
 
       // ACF placeholder metadata
       if (function_exists('update_field')) {
+        //TODO Mappare come da specifiche del cliente
         update_field('acf_field_1', sanitize_text_field($data['acf_field_1'] ?? ''), $product->get_id());
         update_field('acf_field_2', intval($data['acf_field_2'] ?? 0),           $product->get_id());
         update_field('acf_field_3', wp_json_encode($data['acf_field_3'] ?? []),  $product->get_id());
+        //...
       }
       return $product->save();
 

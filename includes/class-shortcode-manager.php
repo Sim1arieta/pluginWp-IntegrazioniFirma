@@ -2,6 +2,9 @@
 
 namespace Integrazioni_Firma;
 
+/**
+ * Classe Shortcode custom di IF
+ */
 class Shortcode_Manager
 {
     public static function init()

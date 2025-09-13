@@ -26,26 +26,30 @@ class Cart_Handler
 
         // 1) aggiungi al carrello
         $item_key = WC()->cart->add_to_cart($product_id, $qty);
+
         if (! $item_key) {
             Logger::error('Add to cart fallito. Prodotto: ' . $product_id);
             return new \WP_Error('add_failed', 'Impossibile aggiungere il prodotto al carrello.');
         }
 
         // 2) ricalcola totali (se ci sono altri prodotti nel carrelllo)
+        //Uso le funzioni native di WooCommerce
         WC()->cart->calculate_totals();
 
         // 3) salva carrello + sessione
         WC()->cart->set_session();
         WC()->session->save_data();
 
-        // 4) set cookie cart_hash & items_in_cart
+        // 4) Configuro i cookie cart_hash & items_in_cart
         WC()->cart->maybe_set_cart_cookies();
 
 
         // 5) se guest: crea cookie wp_woocommerce_session_*
-        //N.B. per funzionare il negozio di woocommerce deve essere Live 
-        // woocommerce->impostazioni->visibilità del sito->Lve
-        if (! is_user_logged_in()) {
+        /**
+         *  N.B. per funzionare il negozio di woocommerce deve essere Live 
+         *  woocommerce->impostazioni->visibilità del sito->Lve
+         */
+        if (!is_user_logged_in()) {
             WC()->session->set_customer_session_cookie(true);
         }
 

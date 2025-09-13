@@ -1,4 +1,7 @@
+
+//TODO da finalizzare in base all'ambiente di utilizzo
 //Uso dei listener universali su id se con contactform7 ho problemi
+
 
 document.addEventListener('clickXXX', function (e) {
 

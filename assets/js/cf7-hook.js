@@ -22,6 +22,7 @@ document.addEventListener('wpcf7beforesubmit', function(e){
   
 });
 
+//TODO implementare acnhe con id form oltre con il listener cf7
 document.addEventListener('wpcf7mailsent', (e) => {
   
   const { cart_url, checkout_url } = e.detail.apiResponse || {};

@@ -180,7 +180,7 @@ integrazioni-firma/
 - **Asset JS/CSS/immagini**: puoi mantenerli proprietari per uso interno del cliente (vedi eventuale file `LICENSE-CLIENT.txt`).  
 - Dipendenze terze: Woo/CF7/ApproveMe sono GPL; SweetAlert2 è MIT.
 
-> L’eventuale **esclusiva** d’uso va stabilita nel **contratto** con il cliente (NDA/clausola di non ridistribuzione), non nella GPL del codice PHP.
+
 
 ---
 

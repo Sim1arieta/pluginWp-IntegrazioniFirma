@@ -24,7 +24,7 @@ class Custom_Hook
 
     public static function enqueue_js_custom()
     {
-        if (! is_page()) return;
+        if (!is_page()) return;
         wp_enqueue_script('integrazioni-firma-custom', INTEGRAZIONI_FIRMA_URL . 'assets/js/custom-hook.js', ['jquery'], INTEGRAZIONI_FIRMA_VER, true);
        
     }
